@@ -116,10 +116,9 @@ def delete_element(my_list, pos):
     return my_list
 
 def remove_first(my_list):
-
-    if my_list["size"] == 0:
+    if my_list["first"] is None:
         raise IndexError("list index out of range")
-    
+
     node = my_list["first"]
     my_list["first"] = node["next"]
 
@@ -130,25 +129,28 @@ def remove_first(my_list):
     return node["info"]
 
 def remove_last(my_list):
-
-    if my_list["size"] == 0:
+    if my_list["first"] is None:
         raise IndexError("list index out of range")
-    
+
     if my_list["size"] == 1:
         node = my_list["first"]
         my_list["first"] = None
         my_list["last"] = None
     else:
-        bef=None
-        now=my_list['first']
-        while now['next'] is not None:
-            bef=now
-            now=now['next']
-        node=now
-        bef['next']=None
-        my_list['last']=bef
-    my_list['size']-=1
-    return node['info']
+        now = my_list["first"]
+        bef = now
+        now = now["next"]
+
+        while now["next"] is not None:
+            bef = now
+            now = now["next"]
+
+        node = now
+        bef["next"] = None
+        my_list["last"] = bef
+
+    my_list["size"] -= 1
+    return node["info"]
 
 def insert_element(my_list, element, pos):
 

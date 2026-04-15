@@ -10,13 +10,10 @@ data_dir = os.path.dirname(os.path.realpath('__file__')) + '/Data/'
 
 
 def new_logic():
-    analyzer = {'crimes': None,
-                'dateIndex': None
-                }
-
-    analyzer['crimes'] = al.new_list()
-    analyzer['dateIndex'] = bst.new_map()
-
+    analyzer = {
+        'crimes': al.new_list(),
+        'dateIndex': bst.new_map()
+    }
     return analyzer
 
 
@@ -69,17 +66,17 @@ def add_date_index(datentry, crime):
 
 
 def new_data_entry(crime):
-    entry = {'offenseIndex': None, 'lstcrimes': None}
-    entry['offenseIndex'] = lp.new_map(30, 0.5)
-    entry['lstcrimes'] = al.new_list()
-    return entry
+    return {
+        'offenseIndex': lp.new_map(30, 0.5),
+        'lstcrimes': al.new_list()
+    }
 
 
 def new_offense_entry(offensegrp, crime):
-    ofentry = {'offense': None, 'lstoffenses': None}
-    ofentry['offense'] = offensegrp
-    ofentry['lstoffenses'] = al.new_list()
-    return ofentry
+    return {
+        'offense': offensegrp,
+        'lstoffenses': al.new_list()
+    }
 
 
 # ==============================
