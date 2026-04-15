@@ -3,8 +3,8 @@ import csv
 import datetime
 
 from DataStructures.Tree import binary_search_tree as bst
-from DataStructures.List import array_list as al
 from DataStructures.Map import map_linear_probing as lp
+from DataStructures.List import single_linked_list as al
 
 data_dir = os.path.dirname(os.path.realpath('__file__')) + '/Data/'
 
@@ -70,7 +70,7 @@ def add_date_index(datentry, crime):
 
 def new_data_entry(crime):
     entry = {'offenseIndex': None, 'lstcrimes': None}
-    entry['offenseIndex'] = lp.new_map(num_elements=30, load_factor=0.5)
+    entry['offenseIndex'] = lp.new_map(30, 0.5)
     entry['lstcrimes'] = al.new_list()
     return entry
 
@@ -113,9 +113,12 @@ def get_crimes_by_range(analyzer, initialDate, finalDate):
     values = bst.values(analyzer['dateIndex'], start, end)
 
     total = 0
-    for i in range(al.size(values)):
-        entry = al.get_element(values, i)
+    node_val = values["first"]
+
+    while node_val is not None:
+        entry = node_val["info"]
         total += al.size(entry['lstcrimes'])
+        node_val = node_val["next"]
 
     return total
 
