@@ -170,3 +170,34 @@ def values(tree, lo, hi):
     result = lt.new_list()
     values_range(tree["root"], lo, hi, result)
     return result
+
+def delete_min_tree(root):
+    if root is None:
+        return None
+    if root["left"] is None:
+        return root["right"]
+    root["left"] = delete_min_tree(root["left"])
+    root["size"] = 1 + size_tree(root["left"]) + size_tree(root["right"])
+    return root
+
+
+def delete_min(tree):
+    if not is_empty(tree):
+        tree["root"] = delete_min_tree(tree["root"])
+    return tree
+
+
+def delete_max_tree(root):
+    if root is None:
+        return None
+    if root["right"] is None:
+        return root["left"]
+    root["right"] = delete_max_tree(root["right"])
+    root["size"] = 1 + size_tree(root["left"]) + size_tree(root["right"])
+    return root
+
+
+def delete_max(tree):
+    if not is_empty(tree):
+        tree["root"] = delete_max_tree(tree["root"])
+    return tree
